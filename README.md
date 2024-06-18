@@ -1,36 +1,86 @@
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
-## Getting Started
+## Initialisation
 
-First, run the development server:
-
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+Déployer FlowiseAI est nécessaire sur un serveur (local ou en ligne) avant de pouvoir utiliser le chatbot.
+Afin d'installer Flowise sur ce serveur:
+1. Installer FlowiseAI:
+```
+npm install -g flowise
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2. Démarrer le serveur Flowise:
+```
+npx flowise start
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+3. Vérifier le port sur lequel Flowise est disponible.
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+## Déployer le chatbot
 
-## Learn More
+Cloner le projet, puis installer les dépendances:
+```bash
+git clone ......
 
-To learn more about Next.js, take a look at the following resources:
+npm install
+```
+### Builder le serveur Next.js
+```bash
+npm run build
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Démarrer le serveur Next.js
+```bash
+npm run start
+# ou
+yarn start
+```
+### Vérifier l'adresse URL du serveur Flowise et le configurer sur notre code:
+```javascript
+        <BubbleChat
+            chatflowid="38d2bf66-130a-43b6-b225-50f4ab96207a"
+            apiHost="http://localhost:3000"
+            theme={{
+                button: {
+                    backgroundColor: "#3B81F6",
+                    right: 20,
+                    bottom: 20,
+                    size: "medium",
+                    iconColor: "white",
+                    customIconSrc: "https://raw.githubusercontent.com/walkxcode/dashboard-icons/main/svg/google-messages.svg",
+                },
+                chatWindow: {
+                    welcomeMessage: "Hello! This is custom welcome message",
+                    backgroundColor: "#ffffff",
+                    height: 700,
+                    width: 400,
+                    fontSize: 16,
+                    poweredByTextColor: "#303235",
+                    botMessage: {
+                        backgroundColor: "#f7f8ff",
+                        textColor: "#303235",
+                        showAvatar: true,
+                        avatarSrc: "https://raw.githubusercontent.com/zahidkhawaja/langchain-chat-nextjs/main/public/parroticon.png",
+                    },
+                    userMessage: {
+                        backgroundColor: "#3B81F6",
+                        textColor: "#ffffff",
+                        showAvatar: true,
+                        avatarSrc: "https://raw.githubusercontent.com/zahidkhawaja/langchain-chat-nextjs/main/public/usericon.png",
+                    },
+                    textInput: {
+                        placeholder: "Type your question",
+                        backgroundColor: "#ffffff",
+                        textColor: "#303235",
+                        sendButtonColor: "#3B81F6",
+                    }
+                }
+            }}
+        />
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+```
 
-## Deploy on Vercel
+## Deployer sur une page existante
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Ce composant chatBot peut être déployé indépendament sur un projet React ou Next en hébergeant le serveur Flowise en ligne avec des plateformes comme Render, Azure ou HuggingFace. Voir [Déploiement](https://docs.flowiseai.com/configuration/deployment).
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
